@@ -40,7 +40,7 @@ namespace EpiserverAlloy.Models.ViewModels
         /// <returns>Url</returns>
         public string GetSectionGroupUrl(string groupName)
         {
-            return UriSupport.AddQueryString(RemoveQueryStringByKey(HttpContext.Current.Request.Url.AbsoluteUri,"p"), "t", HttpContext.Current.Server.UrlEncode(groupName));
+            return EPiServer.Web.UriUtil.AddQueryString(RemoveQueryStringByKey(HttpContext.Current.Request.Url.AbsoluteUri, "p"), "t", HttpContext.Current.Server.UrlEncode(groupName));
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace EpiserverAlloy.Models.ViewModels
         /// <returns>Url for specified page</returns>
         public string GetPagingUrl(int pageNumber)
         {
-            return UriSupport.AddQueryString(HttpContext.Current.Request.RawUrl, "p", pageNumber.ToString());
+            return EPiServer.Web.UriUtil.AddQueryString(HttpContext.Current.Request.RawUrl, "p", pageNumber.ToString());
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace EpiserverAlloy.Models.ViewModels
         /// <returns>Url for next paging section</returns>
         public string GetNextPagingSectionUrl()
         {
-            return UriSupport.AddQueryString(HttpContext.Current.Request.RawUrl, "p", ((PagingSection * PagingSectionSize) + 1).ToString());
+            return EPiServer.Web.UriUtil.AddQueryString(HttpContext.Current.Request.RawUrl, "p", ((PagingSection * PagingSectionSize) + 1).ToString());
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace EpiserverAlloy.Models.ViewModels
         /// <returns>Url for previous paging section</returns>
         public string GetPreviousPagingSectionUrl()
         {
-            return UriSupport.AddQueryString(HttpContext.Current.Request.RawUrl, "p", ((PagingSection - 1) * PagingSectionSize).ToString());
+            return EPiServer.Web.UriUtil.AddQueryString(HttpContext.Current.Request.RawUrl, "p", ((PagingSection - 1) * PagingSectionSize).ToString());
         }
 
         /// <summary>

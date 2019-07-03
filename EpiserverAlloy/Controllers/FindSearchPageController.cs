@@ -17,7 +17,6 @@ using EPiServer.Find.Api.Querying.Queries;
 using EpiserverAlloy.Controllers;
 using EPiServer.Web;
 using EPiServer.Find.Cms;
-using EpiserverAlloy.Models.Pages;
 
 namespace EpiserverAlloy.Controllers
 {
