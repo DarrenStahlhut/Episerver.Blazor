@@ -5,6 +5,7 @@ using EPiServer.ServiceLocation;
 using EpiserverAlloy.Business.Rendering;
 using EPiServer.Web.Mvc;
 using EPiServer.Web.Mvc.Html;
+using EPiServer.ContentApi.Core.Configuration;
 
 namespace EpiserverAlloy.Business.Initialization
 {
@@ -13,6 +14,12 @@ namespace EpiserverAlloy.Business.Initialization
     {
         public void ConfigureContainer(ServiceConfigurationContext context)
         {
+            // Other dependencies/configuration code
+            context.Services.Configure<ContentApiConfiguration>(config =>
+            {
+                config.Default().SetMinimumRoles(string.Empty);
+            });
+
             //Implementations for custom interfaces can be registered here.
 
             context.ConfigurationComplete += (o, e) =>
