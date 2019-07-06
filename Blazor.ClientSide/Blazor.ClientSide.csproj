@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.0.0-preview6.19307.2" PrivateAssets="all" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ContentDeliveryAPI.Library\ContentDeliveryAPI.Library.csproj" />
+  </ItemGroup>
+
 </Project>
