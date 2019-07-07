@@ -35,15 +35,12 @@ else
     </table>
 }
 
-<h2>Response</h2>
-@response
 
 @code {
 WeatherForecast[] forecasts;
-string response = string.Empty;
+
 protected override async Task OnInitAsync()
 {
     forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
-    response = ContentDeliveryAPI.Library.Helper.Search("bears", 10, 0, "en").Result;
 }
 }

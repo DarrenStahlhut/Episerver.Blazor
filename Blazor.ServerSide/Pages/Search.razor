@@ -1,0 +1,53 @@
+@page "/search"
+@using ContentDeliveryAPI.Library.ViewModels
+@inject ContentDeliveryAPI.Library.SearchService SearchService
+
+<h1>Search</h1>
+
+<p>This component demonstrates fetching data from Episerver Content Delivery API Search service.</p>
+
+<input type="text" bind="@searchText" /><button class="btn btn-primary" @onclick="@SearchQuery">Search</button>
+
+@if (searchResults==null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Excerpt</th>
+                <th>Url</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in searchResults.Results)
+            {
+                <tr>
+                    <td>@result.Title</td>
+                    <td>@result.Excerpt</td>
+                    <td>@result.Url</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+private string searchText { get; set; } = string.Empty;
+SearchResults searchResults = null;
+
+protected async void SearchQuery()
+{
+    searchResults = await SearchService.Search(searchText, 10, 0, "en");
+
+}
+
+protected override async Task OnInitAsync()
+{
+    searchResults = await SearchService.Search("bears", 10, 0, "en");
+}
+}
