@@ -6,9 +6,12 @@
 
 <p>This component demonstrates fetching data from Episerver Content Delivery API Search service.</p>
 
-<input type="text" bind="@searchText" /><button class="btn btn-primary" @onclick="@SearchQuery">Search</button>
+<form onsubmit="@SearchQuery">
+    <input type="text" bind="@searchText" />
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
 
-@if (searchResults==null)
+@if (searchResults == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -37,17 +40,19 @@ else
 
 
 @code {
-private string searchText { get; set; } = string.Empty;
+protected string searchText { get; set; } = string.Empty;
 SearchResults searchResults = null;
 
 protected async void SearchQuery()
 {
-    searchResults = await SearchService.Search(searchText, 10, 0, "en");
+    var query = searchText;
+    query = "alloy";
+    searchResults = await SearchService.Search(query, 10, 0, "en");
 
 }
 
 protected override async Task OnInitAsync()
 {
-    searchResults = await SearchService.Search("bears", 10, 0, "en");
+    searchResults = await SearchService.Search("alloy", 10, 0, "en");
 }
 }
