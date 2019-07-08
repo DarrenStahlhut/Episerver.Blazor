@@ -24,7 +24,7 @@ namespace ContentDeliveryAPI.Library
                     var top = pageSize;
 
                     //todo: replace hardcoded domain
-                    HttpResponseMessage response = await client.GetAsync($"http://localhost:53272/api/episerver/v2.0/search/content?query={query}&skip={skip}&top={top}&expand=*&filter=ContentType/any(t:t eq 'Page')").ConfigureAwait(false);
+                    HttpResponseMessage response = await client.GetAsync($"http://localhost:53272/api/episerver/v2.0/search/content?query={query}&skip={skip}&top={top}&filter=ContentType/any(t:t eq 'Page')").ConfigureAwait(false);
                     response.EnsureSuccessStatusCode();
                     var responseBody = await response.Content.ReadAsStringAsync();
 
