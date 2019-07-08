@@ -51,7 +51,7 @@ namespace ContentDeliveryAPI.Library
                     response.Dispose();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //do nothing, return empty results
             }
