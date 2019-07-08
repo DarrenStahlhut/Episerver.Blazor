@@ -1,58 +1,149 @@
-@page "/search"
+@page "/search/"
 @using ContentDeliveryAPI.Library.ViewModels
 @inject ContentDeliveryAPI.Library.SearchService SearchService
+@inject IUriHelper UriHelper
 
 <h1>Search</h1>
 
-<p>This component demonstrates fetching data from Episerver Content Delivery API Search service.</p>
+<h3>Episerver Content Delivery API Search service</h3>
 
-<form onsubmit="@SearchQuery">
-    <input type="text" bind="@searchText" />
-    <button class="btn btn-primary" type="submit">Search</button>
-</form>
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="input-group">
+            <input class="form-control col-xs-12 col-sm-10 col-lg-6" @bind-value="SearchText" @bind-value:event="oninput" @onkeyup="@SubmitSearchText" />
+            <span class="input-group-btn ml-2">
+                <button class="btn btn-primary" @onclick="@SubmitSearch">Search</button>
+            </span>
+        </div>
+    </div>
+</div>
 
-@if (searchResults == null)
+@if (@Searching)
 {
-    <p><em>Loading...</em></p>
+    <div class="row">
+        <div class="col-10">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <p class="ml-2 mt-1 text-primary"><em>Loading...</em></p>
+        </div>
+    </div>
 }
-else
+
+@if (Searching == false && SearchResults != null)
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Excerpt</th>
-                <th>Url</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var result in searchResults.Results)
-            {
+    @if (SearchResults.Results.Any())
+    {
+        <div class="alert alert-primary" role="alert">
+            Found @SearchResults.TotalMatching results searching for <strong>@SearchResults.SearchTerm</strong>
+        </div>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@result.Title</td>
-                    <td>@result.Excerpt</td>
-                    <td>@result.Url</td>
+                    <th>Title</th>
+                    <th>Excerpt</th>
+                    <th>Url</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var result in SearchResults.Results)
+                {
+                    <tr>
+                        <td>@result.Title</td>
+                        <td>@result.Excerpt</td>
+                        <td>@result.Url</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @if (SearchResults.Pager.EndPage > 1)
+        {
+            <nav aria-label="Pagination">
+                <ul class="pagination">
+                    @if (SearchResults.Pager.CurrentPage > 1)
+                    {
+                        <li class="page-item"><button class="page-link" @onclick="@(e => Pageinate(e, 1))">First</button></li>
+                        <li class="page-item"><button class="page-link" @onclick="@(e => Pageinate(e, SearchResults.Pager.CurrentPage - 1))">Previous</button></li>
 
+                    }
+
+                    @for (var i = SearchResults.Pager.StartPage; i <= SearchResults.Pager.EndPage; i++)
+                    {
+                        var pageNumber = i;
+                        if (pageNumber == SearchResults.Pager.CurrentPage)
+                        {
+                            
+                            <li class="page-item active" aria-current="page">
+                                <button class="page-link" @onclick="@(e => Pageinate(e, pageNumber))">@pageNumber <span class="sr-only">(current)</span></button>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><button class="page-link" @onclick="@(e => Pageinate(e, pageNumber))">@pageNumber</button></li>
+                        }
+                    }
+
+                    @if (SearchResults.Pager.CurrentPage < SearchResults.Pager.TotalPages)
+                    {
+                        <li class="page-item">
+                            <button class="page-link" @onclick="@(e => Pageinate(e, SearchResults.Pager.CurrentPage + 1))">Next</button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" @onclick="@(e => Pageinate(e, SearchResults.Pager.TotalPages))">Last</button>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
+    }
+    else
+    {
+            <div class="alert alert-warning" role="alert">
+                Sorry, no results found searching for <strong>@SearchResults.SearchTerm</strong>
+            </div>
+    }
+}
 
 @code {
-protected string searchText { get; set; } = string.Empty;
-SearchResults searchResults = null;
+protected string SearchText { get; set; }
+protected bool Searching { get; set; }
+protected SearchResults SearchResults;
 
-protected async void SearchQuery()
+protected async Task SubmitSearchText(UIKeyboardEventArgs e)
 {
-    var query = searchText;
-    query = "alloy";
-    searchResults = await SearchService.Search(query, 10, 0, "en");
+    if (e.Key == "Enter")
+    {
+        await SearchQuery();
+    }
+}
 
+protected async Task SubmitSearch()
+{
+    await SearchQuery();
+}
+
+protected async Task Pageinate(UIMouseEventArgs e, int pageNumber)
+    {
+        await SearchQuery(pageNumber);
+    }
+
+protected async Task SearchQuery(int page = 1, int pageSize = 10)
+{
+    string query = SearchText;
+    Searching = true;
+    SearchResults = await SearchService.Search(query, page, pageSize, "en").ConfigureAwait(false);
+    Searching = false;
 }
 
 protected override async Task OnInitAsync()
 {
-    searchResults = await SearchService.Search("alloy", 10, 0, "en");
+    //if we have SearchText in the URL parameter
+    var uri = new Uri(UriHelper.GetAbsoluteUri());
+    var searchQuerystring = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("search", out var type) ? type.First() : string.Empty;
+    if (!string.IsNullOrEmpty(searchQuerystring))
+    {
+        SearchText = searchQuerystring;
+        await SearchQuery();
+    }
 }
 }
