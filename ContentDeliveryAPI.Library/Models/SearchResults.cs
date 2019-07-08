@@ -332,7 +332,8 @@ namespace ContentDeliveryAPI.Library.Models
             {
                 return DisplayName.English;
             }
-            throw new Exception("Cannot unmarshal type DisplayName");
+            //throw new Exception("Cannot unmarshal type DisplayName");
+            return null;
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
@@ -366,7 +367,8 @@ namespace ContentDeliveryAPI.Library.Models
             {
                 return Name.En;
             }
-            throw new Exception("Cannot unmarshal type Name");
+            //throw new Exception("Cannot unmarshal type Name");
+            return null;
         }
 
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
