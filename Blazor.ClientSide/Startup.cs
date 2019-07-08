@@ -7,6 +7,7 @@ namespace Blazor.ClientSide
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ContentDeliveryAPI.Library.SearchService>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
