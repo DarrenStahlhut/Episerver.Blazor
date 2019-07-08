@@ -51,7 +51,12 @@
                     <tr>
                         <td>@result.Title</td>
                         <td>@result.Excerpt</td>
-                        <td>@result.Url</td>
+                        <td>
+                            @if (result.Url!=null)
+                            {
+                                <a href="@result.Url" target="_blank">@result.Url</a>
+                            }
+                        </td>
                     </tr>
                 }
             </tbody>
