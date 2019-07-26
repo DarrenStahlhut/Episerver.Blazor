@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ContentDeliveryAPI.Library
+namespace Common.Library
 {
     public class SearchService
     {

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29021.104
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpiserverAlloy", "EpiserverAlloy\EpiserverAlloy.csproj", "{4DE3FBDF-FB1E-4E81-B155-3854D5D2E2D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Episerver.Alloy", "Episerver.Alloy\Episerver.Alloy.csproj", "{4DE3FBDF-FB1E-4E81-B155-3854D5D2E2D0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.ClientSide", "Blazor.ClientSide\Blazor.ClientSide.csproj", "{476ED100-AC92-4A3F-982C-09A34B051375}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentDeliveryAPI.Library", "ContentDeliveryAPI.Library\ContentDeliveryAPI.Library.csproj", "{56B827FA-781B-4213-BB8B-A58F29BEAD8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Library", "Common.Library\Common.Library.csproj", "{56B827FA-781B-4213-BB8B-A58F29BEAD8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.ServerSide", "Blazor.ServerSide\Blazor.ServerSide.csproj", "{9956836C-FCE9-41F3-A3EA-45F64F2FBD02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.ServerSide", "Blazor.ServerSide\Blazor.ServerSide.csproj", "{9956836C-FCE9-41F3-A3EA-45F64F2FBD02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

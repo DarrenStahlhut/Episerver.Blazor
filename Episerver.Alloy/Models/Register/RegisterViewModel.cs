@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace EpiserverAlloy.Models
+namespace EpiserverAlloy.Models.Register
 {
     public class RegisterViewModel
     {

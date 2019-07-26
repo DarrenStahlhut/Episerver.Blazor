@@ -1,13 +1,15 @@
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Common.Library;
 
 namespace Blazor.ClientSide
 {
+
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ContentDeliveryAPI.Library.SearchService>();
+            services.AddSingleton<SearchService>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

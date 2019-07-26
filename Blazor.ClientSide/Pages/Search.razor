@@ -1,6 +1,6 @@
 @page "/search/"
-@using ContentDeliveryAPI.Library.ViewModels
-@inject ContentDeliveryAPI.Library.SearchService SearchService
+@using Common.Library.ViewModels
+@inject Common.Library.SearchService SearchService
 @inject IUriHelper UriHelper
 
 <h1>Search</h1>
@@ -52,7 +52,7 @@
                         <td>@result.Title</td>
                         <td>@result.Excerpt</td>
                         <td>
-                            @if (result.Url!=null)
+                            @if (result.Url != null)
                             {
                                 <a href="@result.Url" target="_blank">@result.Url</a>
                             }
@@ -77,7 +77,7 @@
                         var pageNumber = i;
                         if (pageNumber == SearchResults.Pager.CurrentPage)
                         {
-                            
+
                             <li class="page-item active" aria-current="page">
                                 <button class="page-link" @onclick="@(e => Pageinate(e, pageNumber))">@pageNumber <span class="sr-only">(current)</span></button>
                             </li>
@@ -103,52 +103,52 @@
     }
     else
     {
-            <div class="alert alert-warning" role="alert">
-                Sorry, no results found searching for <strong>@SearchResults.SearchTerm</strong>
-            </div>
+        <div class="alert alert-warning" role="alert">
+            Sorry, no results found searching for <strong>@SearchResults.SearchTerm</strong>
+        </div>
     }
 }
 
 @code {
-protected string SearchText { get; set; }
-protected bool Searching { get; set; }
-protected SearchResults SearchResults;
+    protected string SearchText { get; set; }
+    protected bool Searching { get; set; }
+    protected SearchResults SearchResults;
 
-protected async Task SubmitSearchText(UIKeyboardEventArgs e)
-{
-    if (e.Key == "Enter")
+    protected async Task SubmitSearchText(UIKeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await SearchQuery();
+        }
+    }
+
+    protected async Task SubmitSearch()
     {
         await SearchQuery();
     }
-}
 
-protected async Task SubmitSearch()
-{
-    await SearchQuery();
-}
+    protected async Task Pageinate(UIMouseEventArgs e, int pageNumber)
+    {
+        await SearchQuery(pageNumber);
+    }
 
-protected async Task Pageinate(UIMouseEventArgs e, int pageNumber)
-{
-    await SearchQuery(pageNumber);
-}
+    protected async Task SearchQuery(int page = 1, int pageSize = 10)
+    {
+        string query = SearchText;
+        Searching = true;
+        SearchResults = await SearchService.Search(query, page, pageSize, "en").ConfigureAwait(false);
+        Searching = false;
+    }
 
-protected async Task SearchQuery(int page = 1, int pageSize = 10)
-{
-    string query = SearchText;
-    Searching = true;
-    SearchResults = await SearchService.Search(query, page, pageSize, "en").ConfigureAwait(false);
-    Searching = false;
-}
-
-//protected override async Task OnInitAsync()
-//{
-//    //if we have SearchText in the URL parameter
-//    var uri = new Uri(UriHelper.GetAbsoluteUri());
-//    var searchQuerystring = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("search", out var type) ? type.First() : string.Empty;
-//    if (!string.IsNullOrEmpty(searchQuerystring))
-//    {
-//        SearchText = searchQuerystring;
-//        await SearchQuery();
-//    }
-//}
+    //protected override async Task OnInitAsync()
+    //{
+    //    //if we have SearchText in the URL parameter
+    //    var uri = new Uri(UriHelper.GetAbsoluteUri());
+    //    var searchQuerystring = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("search", out var type) ? type.First() : string.Empty;
+    //    if (!string.IsNullOrEmpty(searchQuerystring))
+    //    {
+    //        SearchText = searchQuerystring;
+    //        await SearchQuery();
+    //    }
+    //}
 }

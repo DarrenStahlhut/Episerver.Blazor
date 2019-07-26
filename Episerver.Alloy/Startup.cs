@@ -1,6 +1,7 @@
 using System;
 using System.Web;
 using EPiServer.Cms.UI.AspNetIdentity;
+using EpiserverAlloy.Business;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;

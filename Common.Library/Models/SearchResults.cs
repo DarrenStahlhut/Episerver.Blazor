@@ -6,15 +6,14 @@
 //
 //    var searchResults = SearchResults.FromJson(jsonString);
 
-namespace ContentDeliveryAPI.Library.Models
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace Common.Library.Models
 {
-    using System;
-    using System.Collections.Generic;
-
-    using System.Globalization;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-
     public partial class SearchResults
     {
         [JsonProperty("totalMatching")]
@@ -220,12 +219,12 @@ namespace ContentDeliveryAPI.Library.Models
 
     public partial class SearchResults
     {
-        public static SearchResults FromJson(string json) => JsonConvert.DeserializeObject<SearchResults>(json, ContentDeliveryAPI.Library.Models.Converter.Settings);
+        public static SearchResults FromJson(string json) => JsonConvert.DeserializeObject<SearchResults>(json, Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this SearchResults self) => JsonConvert.SerializeObject(self, ContentDeliveryAPI.Library.Models.Converter.Settings);
+        public static string ToJson(this SearchResults self) => JsonConvert.SerializeObject(self, Converter.Settings);
     }
 
     internal static class Converter

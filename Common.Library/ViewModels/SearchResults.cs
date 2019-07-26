@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ContentDeliveryAPI.Library.ViewModels
+namespace Common.Library.ViewModels
 {
 
     public class SearchResults

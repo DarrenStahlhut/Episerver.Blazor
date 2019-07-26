@@ -10,6 +10,8 @@ using System.Web.Profile;
 using EPiServer.Security;
 using EPiServer.DataAbstraction;
 using EPiServer.Personalization;
+using EpiserverAlloy.Business;
+using EpiserverAlloy.Models.Register;
 
 namespace EpiserverAlloy.Controllers
 {
