@@ -31,7 +31,7 @@ Installation / Get the Demo running
 What's does this Demo demonstrate?
 ---------------------------------
 - The **Common.Library** project provides a SearchService, that consumes the Episerver Content Delivery API Search, and returns a strongly typed List<SearchResult> which is bound to the UI in Razor.
-- The **Blazor** project contain a Search page `Pages/Search.razor` which Injects the SearchService.
+- The **Blazor** projects contain a Search page `Pages/Search.razor` which Injects the SearchService, and binds the returned List<SearchResult> to the UI.
 - When you run the **Blazor.Serverside** project and perform a Search, SignalR via Websockets sends the request back to the server, executes the Search and returns DOM Diffs to the Browser.
 - When you run the **Blazor.Clientside** project and perform a Search, the entire Common.Library is compiled into WebAssembly and run in the Browser. The Client will execute the GET to Episerver Content Delivery API.
 
@@ -42,6 +42,7 @@ What's on the Roadmap?
 
 References
 --------
+- Blazor + Episerver blog series: https://world.episerver.com/blogs/darren-s/dates/2019/7/blazor--episerver-blog-series/
 - Blazor Official Site: https://dotnet.microsoft.com/apps/aspnet/web-apps/client
 - Blazor Official Documentation: https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-3.0
 - Blazor Video Steven Sanderson: https://www.youtube.com/watch?v=0RfUPr0KrSM
