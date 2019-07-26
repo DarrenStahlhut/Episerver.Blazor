@@ -35,6 +35,10 @@ What's does this Demo demonstrate?
 - When you run the **Blazor.Serverside** project and perform a Search, SignalR via Websockets sends the request back to the server, executes the Search and returns DOM Diffs to the Browser.
 - When you run the **Blazor.Clientside** project and perform a Search, the entire Common.Library is compiled into WebAssembly and run in the Browser. The Client will execute the GET to Episerver Content Delivery API.
 
+What's on the Roadmap?
+---------------------------------
+- Episerver Content Routing in Blazor.Serverside
+- Javascript Interop examples to demonstrate calling existing Javascript Libraries from C#
 
 References
 --------
