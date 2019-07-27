@@ -2,7 +2,7 @@
 [![GitHub version](https://badge.fury.io/gh/DarrenStahlhut%2FEpiserver.Blazor.svg)](https://badge.fury.io/gh/DarrenStahlhut%2FEpiserver.Blazor)
 [![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
-This repository was created as a demonstration of .Net Blazor (Server-side and Client-side) ustilizing a shared .Net Standard 2.0 class library to consume on Episerver Content Delivery API.
+This repository was created as a demonstration of .NET Core Blazor (Server-side and Client-side) using a shared .NET Standard 2.0 class library to consume on Episerver Content Delivery API.
 
 Requirements
 --------
